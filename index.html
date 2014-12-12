@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Handlebars Demo</title>
+        <script type="text/javascript" src="Handlebars.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="jquery-endless-scroll/js/jquery.endless-scroll.js"></script>
+    </head>
+    <body>
+    	<h3>Questions</h3>
+    	<div id="posts"></div>
+    	<script>
+			$.getJSON("http://public-api.wordpress.com/rest/v1/sites/80443095/posts/?pretty=true&fields=title,date&tag=question&number=5&offset=0",
+	    	function(result){
+	    		$.each(result.posts,
+	    			function(j,question){
+	    			// Define a question_id. It will be used to label the DOM element, as well as searching for answers
+	    			var split_title = question.title.split(':')
+	    			var question_id = split_title[0];
+	    			$("#posts").append("<div id='"+question_id+"'><h4><em>"+question.date.substr(0,10)+"</em>: "+split_title[1].trim()+"</h4></div>");
+	    			$.getJSON("http://public-api.wordpress.com/rest/v1/sites/80443095/posts/?pretty=true&fields=title,content,date&search=Response%20to%20"+question_id,
+	    				function(data){
+	    					$.each(data.posts,
+	    						function(j,answer){
+	    							if (answer.title.split(':')[0] != question_id) {
+	    								var processed_content = answer.content.replace("<img","<br><img");
+	    								$("#"+question_id).append("<p>"+processed_content+"</p>");
+	    							}
+	    					});
+	    				});
+	    		});
+	    	});
+		</script>
+    </body>
+</html>

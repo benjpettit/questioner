@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Handlebars Demo</title>
+        <script type="text/javascript" src="Handlebars.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <script id="Handlebars-Template" type="text/x-handlebars-template">
+		    <div id="Content">
+		      <h1>RecipeCards
+		      </h1>
+		      {{#each Posts}}
+		        <div class='Box'>
+					<p>{{content}}</p>
+		        </div>
+		      {{/each}}
+		    </div>
+		</script>
+        <script>
+	        //Parse the JSON data
+	        var requestPosts = {posts:[{content:"1"},{content:"2"}]};
+	        
+	        //Get the Template from above
+	        var Source = document.getElementById("Handlebars-Template").textContent;
+	         
+	        //Compile the actual Template file
+	        var Template = Handlebars.compile(Source);
+	         
+	        //Generate some HTML code from the compiled Template
+	        var HTML = Template({ Posts : requestPosts.posts });
+	         
+	        //Replace the body section with the new code.
+	        document.body.innerHTML = HTML;
+		 
+		</script>
+    </body>
+</html>

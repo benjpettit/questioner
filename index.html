@@ -1,15 +1,13 @@
 <html>
     <head>
-        <title>Handlebars Demo</title>
-        <script type="text/javascript" src="Handlebars.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="jquery-endless-scroll/js/jquery.endless-scroll.js"></script>
+        <title>Questioner</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     </head>
     <body>
     	<h3>Questions</h3>
     	<div id="posts"></div>
     	<script>
-			$.getJSON("http://public-api.wordpress.com/rest/v1/sites/80443095/posts/?pretty=true&fields=title,date&tag=question&number=5&offset=0",
+			$.getJSON("https://public-api.wordpress.com/rest/v1/sites/80443095/posts/?pretty=true&fields=title,date&tag=question&number=5&offset=0",
 	    	function(result){
 	    		$.each(result.posts,
 	    			function(j,question){
